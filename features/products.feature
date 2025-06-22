@@ -38,3 +38,27 @@ Scenario: Create a Product
     And I should see "True" in the "Available" dropdown
     And I should see "Tools" in the "Category" dropdown
     And I should see "34.95" in the "Price" field
+
+
+Feature: Product Catalog Administration
+
+  As a Product Catalog Administrator
+  I want to manage the products in the catalog
+  So that I can keep the catalog up to date
+
+  Background:
+    Given the following products
+      | name   | description     | price | available | category  |
+      | Fedora | A red hat       | 12.50 | True      | CLOTHING  |
+      | Apple  | A green apple   | 1.99  | True      | FOOD      |
+
+  Scenario: Read a Product
+    When I visit the "Product Catalog Administration" home page
+    And I enter "1" in the "Product ID" field
+    And I press the "Retrieve" button
+    Then I should see "Fedora" in the "Name" field
+    And I should see "A red hat" in the "Description" field
+    And I should see "12.50" in the "Price" field
+    And I should see "True" in the "Available" field
+    And I should see "CLOTHING" in the "Category" field
+
