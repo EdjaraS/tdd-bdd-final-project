@@ -241,3 +241,14 @@ def test_delete_product(self):
     self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
 
 
+def test_list_all_products(self):
+    """It should List all Products"""
+    self._create_products(3)
+    response = self.client.get(BASE_URL)
+    self.assertEqual(response.status_code, status.HTTP_200_OK)
+    data = response.get_json()
+    self.assertIsInstance(data, list)
+    self.assertGreaterEqual(len(data), 3)  
+
+
+
