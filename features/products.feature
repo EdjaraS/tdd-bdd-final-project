@@ -62,3 +62,30 @@ Feature: Product Catalog Administration
     And I should see "True" in the "Available" field
     And I should see "CLOTHING" in the "Category" field
 
+
+
+  Scenario: Update a Product
+    When I visit the "Product Catalog Administration" home page
+    And I enter "1" in the "Product ID" field
+    And I press the "Retrieve" button
+    And I enter "A stylish blue hat" in the "Description" field
+    And I press the "Update" button
+    Then I should see "A stylish blue hat" in the "Description" field
+
+
+  Scenario: Delete a Product
+    When I enter "Hat" in the "Name" field
+    And I press the "Search" button
+    Then I should see the message "Success"
+    And the "Name" field should contain "Hat"
+    When I copy the value from the "Product ID" field
+    And I clear the form
+    And I paste the copied value into the "Product ID" field
+    And I press the "Delete" button
+    Then I should see the message "Product has been Deleted!"
+    When I press the "Clear" button
+    And I press the "Search" button
+    Then the product should not appear in the search results
+
+
+
