@@ -141,6 +141,21 @@ def get_products(product_id):
 #
 # PLACE YOUR CODE TO UPDATE A PRODUCT HERE
 #
+@app.route("/products/<int:product_id>", methods=["PUT"])
+def update_products(product_id):
+    """
+    Update a Product
+    This endpoint will update a Product based on its id
+    """
+    app.logger.info("Request to update product with id: %s", product_id)
+    check_content_type("application/json")
+    product = Product.find(product_id)
+    if not product:
+        abort(status.HTTP_404_NOT_FOUND, f"Product with id '{product_id}' was not found.")
+    data = request.get_json()
+    product.deserialize(data)
+    product.update()
+    return jsonify(product.serialize()), status.HTTP_200_OK
 
 ######################################################################
 # D E L E T E   A   P R O D U C T
