@@ -250,5 +250,19 @@ def test_list_all_products(self):
     self.assertIsInstance(data, list)
     self.assertGreaterEqual(len(data), 3)  
 
+def test_list_products_by_name(self):
+    """It should List Products by Name"""
+    products = self._create_products(5)
+    name = products[0].name
+    expected_count = len([p for p in products if p.name == name])
+    response = self.client.get(f"{BASE_URL}?name={name}")
+    self.assertEqual(response.status_code, status.HTTP_200_OK)
+    data = response.get_json()
+    self.assertIsInstance(data, list)
+    self.assertEqual(len(data), expected_count)
+    for product in data:
+        self.assertEqual(product["name"], name)
+
+
 
 
