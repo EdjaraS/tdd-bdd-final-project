@@ -176,3 +176,33 @@ def delete_products(product_id):
     if product:
         product.delete()
     return "", status.HTTP_204_NO_CONTENT
+
+
+
+######################################################################
+# L I S T   P R O D U C T S
+######################################################################
+@app.route("/products", methods=["GET"])
+def list_products():
+    """
+    Returns all of the Products, or filters by name, category, or availability
+    This endpoint will return a list of all Products or filtered by query params
+    """
+    app.logger.info("Request for product list")
+    name = request.args.get("name")
+    category = request.args.get("category")
+    available = request.args.get("available")
+
+    if name:
+        products = Product.find_by_name(name)
+    elif category:
+        products = Product.find_by_category(category)
+    elif available is not None:
+        # String to boolean conversion
+        is_available = available.lower() == "true"
+        products = Product.find_by_availability(is_available)
+    else:
+        products = Product.all()
+
+    results = [product.serialize() for product in products]
+    return jsonify(results), status.HTTP_200_OK
