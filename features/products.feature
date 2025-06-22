@@ -107,6 +107,15 @@ Feature: Product Catalog Administration
     And I should not see "Shoes" in the results
     And I should not see "Sheets" in the results
 
+  Scenario: Search for Products by Availability
+    When I set the Available dropdown to "True"
+    And I press the "Search" button
+    Then I should see the message "Success"
+    And I should see "Big Mac" in the results
+    And I should not see "Hat" in the results
+    And I should see only available products in the results
+    And I should not see unavailable products in the results
+
 
 
 
