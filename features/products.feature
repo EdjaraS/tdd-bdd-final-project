@@ -88,4 +88,15 @@ Feature: Product Catalog Administration
     Then the product should not appear in the search results
 
 
+  Scenario: List all Products
+    When I press the "Clear" button
+    And I press the "Search" button
+    Then I should see the message "Success"
+    And I should see "Hat" in the results
+    And I should see "Shoes" in the results
+    And I should see "Big Mac" in the results
+    And I should see "Sheets" in the results
+
+
+
 
