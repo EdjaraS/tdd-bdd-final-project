@@ -214,3 +214,20 @@ def get_products(product_id):
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
         data = response.get_json()
         self.assertIn("was not found", data["message"])
+
+
+def test_update_product(self):
+    """It should Update an existing Product"""
+     test_product = self._create_products(1)[0]
+     new_description = "Updated description"
+     test_product.description = new_description
+    
+     product_data = test_product.serialize()
+ 
+     response = self.client.put(f"{BASE_URL}/{test_product.id}", json=product_data)
+     self.assertEqual(response.status_code, status.HTTP_200_OK)
+   
+     data = response.get_json()
+     self.assertEqual(data["id"], test_product.id)
+     self.assertEqual(data["description"], new_description)
+
