@@ -117,6 +117,15 @@ Feature: Product Catalog Administration
     And I should not see unavailable products in the results
 
 
+  Scenario: Search for Products by Name
+    When I type the product name "Big Mac" in the Name field
+    And I press the "Search" button
+    Then I should see the message "Success"
+    And I should see "Big Mac" in the results
+    And I should not see other products from the background data in the results
+
+
+
 
 
 
