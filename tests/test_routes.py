@@ -263,6 +263,18 @@ def test_list_products_by_name(self):
     for product in data:
         self.assertEqual(product["name"], name)
 
+def test_list_products_by_category(self):
+    """It should List Products by Category"""
+    products = self._create_products(5)
+    category = products[0].category.name  # 
+    expected_count = len([p for p in products if p.category.name == category])
+    response = self.client.get(f"{BASE_URL}?category={category}")
+    self.assertEqual(response.status_code, status.HTTP_200_OK)
+    data = response.get_json()
+    self.assertIsInstance(data, list)
+    self.assertEqual(len(data), expected_count)
+    for product in data:
+        self.assertEqual(product["category"], category)
 
 
 
