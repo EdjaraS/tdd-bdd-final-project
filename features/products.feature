@@ -97,6 +97,17 @@ Feature: Product Catalog Administration
     And I should see "Big Mac" in the results
     And I should see "Sheets" in the results
 
+  Scenario: Search for Products by Category
+    When I press the "Clear" button
+    And I select "Food" in the Category dropdown
+    And I press the "Search" button
+    Then I should see the message "Success"
+    And I should see "Big Mac" in the results
+    And I should not see "Hat" in the results
+    And I should not see "Shoes" in the results
+    And I should not see "Sheets" in the results
+
+
 
 
 
